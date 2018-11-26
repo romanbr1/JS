@@ -48,12 +48,11 @@ console.log(filterRange(cars,2,4));
 console.log('----task 5------------------');
 function camelize (str){
 	str=str.toLowerCase();
-	let arr2=[];
 	let arr = str.split('-');
 	for(i=1;i<arr.length;i++){
-		arr2[i]=arr[i][0].toUpperCase() + arr[i].slice(1);
+		arr[i]=arr[i][0].toUpperCase() + arr[i].slice(1);
 	}
-	return str = arr[0]+arr2.join('');
+	return str = arr.join('');
 
 }
 console.log(camelize('my-short-string'));

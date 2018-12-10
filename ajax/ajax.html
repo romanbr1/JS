@@ -1,0 +1,92 @@
+
+<html>
+<head>
+<title>Ajax - Node</title>
+<style>
+
+
+.error {
+	background-color: red;
+}
+
+
+</style>
+<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+</head>
+<body>
+
+
+	<h1>Ajax Get method</h1>
+	<form>
+		<label>Name</label><br> <input type="text" id="userNameGet"><br>
+		<label>Age</label><br> <input type="text" id="userAgeGet"><br>
+		<label>Address</label><br> <input type="text" id="userAddressGet"><br>
+		<br> <input id="getButt" disabled type="button" value="Send by Get"
+			onclick="sendDataByGetMethod()">
+
+	</form>
+
+	<br>
+
+	<h1>Ajax Post method</h1>
+	<form>
+		<label>Name</label><br> <input type="text" id="userNamePost"><br>
+		<label>Age</label><br> <input type="text" id="userAgePost"><br>
+		<label>Address</label><br> <input type="text" id="userAddressPost"><br>
+		<br> <input id="postButt" disabled type="button" value="send by Post"
+			onclick="sendDataByPostMethod()">
+	</form>
+
+	<br>
+	<script>
+function sendDataByGetMethod() {
+	
+	var userData = {
+		userName:document.getElementById('userNameGet').value,	
+	    userAge:document.getElementById('userAgeGet').value,
+	    userAddress:document.getElementById('userAddressGet').value
+	};
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "/userGet?userName="+userData.userName+"&userAge="+userData.userAge+"&userAddress="+userData.userAddress);
+	xhr.setRequestHeader("Content-type","application/json");
+	xhr.send();
+}
+
+
+function sendDataByPostMethod() {
+	var userData = {
+			userName:document.getElementById('userNamePost').value,	
+		    userAge:document.getElementById('userAgePost').value,
+		    userAddress:document.getElementById('userAddressPost').value
+		};
+		
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "/userPost");
+		xhr.setRequestHeader("Content-type","application/json");
+		xhr.send(JSON.stringify(userData));
+}
+userAgeGet.onblur = function() {
+	if(this.value>100||this.value<1||isNaN(this.value)){	
+		this.classList.add('error');
+		alert("wrong age input");
+		document.getElementById("getButt").disabled = true;
+	}else{
+		this.classList.remove('error');	
+		document.getElementById("getButt").disabled = false;
+	}
+}
+userAgePost.onblur = function() {
+	if(this.value>100||this.value<1||isNaN(this.value)){	
+		this.classList.add('error');
+		alert("wrong age input");
+		document.getElementById("postButt").disabled = true;
+	}else{
+		this.classList.remove('error');	
+		document.getElementById("postButt").disabled = false;
+	}
+}
+</script>
+
+</body>
+</html>
